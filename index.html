@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>MY Coffee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<div id="loader"><b>MY Coffee</b></div><div id="prog"></div><div id="cur"></div><div id="cur2"></div>
+<div id="bg"></div><div id="wipe"></div><div id="glow"></div><div class="gl" id="glow2"></div><div class="gl" id="glow3"></div><canvas id="cv"></canvas>
+<nav><b>MY <span>Coffee</span></b><div><a href="#menu">Menu</a><a href="#reserve">Reserve</a><a href="#visit">Visit</a><button class="btn ghost" style="padding:8px 14px" title="Admin" onclick="openAdmin()">🔐</button><button class="btn" onclick="drawer(1)">Order ☕</button></div></nav>
+
+<section class="hero">
+ <div class="rv"><p class="tag" style="letter-spacing:.3em">OPEN DAILY · 12 PM – MIDNIGHT</p>
+ <h1>Every cup,<br>a <em>different</em><br>world.</h1>
+ <p>Pick a coffee and watch the room change colour around you. Pick a table and it's yours. Five branches across Colombo.</p>
+ <button class="btn" onclick="go('menu')">Explore the menu</button> <button class="btn ghost" onclick="go('reserve')">Reserve a table</button></div>
+ <div class="stage" id="stage"><div class="cup3d" id="cup3d"></div></div>
+</section>
+
+<div class="mq"><div>FRESHLY ROASTED ✦ SLOW POURED ✦ MIDNIGHT BREWS ✦ FRESHLY ROASTED ✦ SLOW POURED ✦ MIDNIGHT BREWS ✦ FRESHLY ROASTED ✦ SLOW POURED ✦ MIDNIGHT BREWS ✦ FRESHLY ROASTED ✦ SLOW POURED ✦ MIDNIGHT BREWS ✦&nbsp;</div></div>
+<section id="menu"><h2 class="rv">The Menu</h2><p class="sub rv">Tap an item. The whole page follows.</p>
+ <div class="menu"><div><div class="mtools"><div class="cats" id="cats"></div><input id="q" type="search" placeholder="Search the menu…"></div><div class="pick" id="pick"></div><div class="info" id="info"></div></div><div class="big" id="big"></div></div>
+</section>
+
+<section id="reserve"><h2 class="rv">Reserve your table</h2><p class="sub rv">Choose a branch, then tap a table on the floor plan.</p>
+ <div class="panel rv">
+  <div class="form">
+   <label>Branch<select id="branch"></select></label>
+   <label>Date<input type="date" id="date"></label>
+   <label>Time<select id="time"></select></label>
+   <label>Guests<input type="number" id="guests" min="1" max="8" value="2"></label>
+  </div>
+  <div class="legend"><span><i style="background:var(--ok)"></i>Available</span><span><i style="background:#f0b868"></i>Selected</span><span><i style="background:var(--bad)"></i>Reserved</span><span><i style="background:#777"></i>Too small for your group</span></div>
+  <div class="floor" id="floor"><div class="door">ENTRANCE</div></div>
+  <div class="sum"><div id="selTxt" class="tag">No table selected</div><button class="btn" id="resBtn" disabled onclick="openRes()">Reserve this table</button></div>
+  <p class="tag" style="margin-top:14px">Already booked? <a href="#" onclick="openManage();return false" style="color:var(--a)">Find, change or cancel your booking</a> · <a href="#" onclick="openRewards();return false" style="color:var(--a)">⭐ My rewards</a></p>
+ </div>
+</section>
+
+<section id="visit"><h2 class="rv">Find us</h2><div class="panel rv"><p>📍 Kollupitiya · Bambalapitiya · Arcade Independence Square · Kiribathgoda · Nugegoda</p><p>🕛 12:00 PM – 12:00 AM, every day</p><p>📞 <a href="tel:0753150772" style="color:var(--a)">0753150772</a> · ✉️ <a href="mailto:Hellocoffee@gmail.com" style="color:var(--a)">Hellocoffee@gmail.com</a> · 💬 <a href="https://wa.me/94753150772" target="_blank" rel="noopener" style="color:var(--a)">WhatsApp</a></p></div></section>
+<footer>© MY Coffee · Crafted for coffee lovers</footer>
+
+<button class="btn cartbtn" onclick="drawer(1)">🛒 <span id="cc">0</span> · Rs. <span id="ct">0</span></button>
+<div id="trk" onclick="openTrack(myOrder)"></div>
+<a class="wa" href="https://wa.me/94753150772?text=Hi%20MY%20Coffee!" target="_blank" rel="noopener">💬 WhatsApp</a>
+<div class="drawer" id="dr"><button class="btn ghost" style="align-self:flex-end" onclick="drawer(0)">Close ✕</button><h3>Your order</h3>
+ <label>Pickup branch<select id="obranch"></select></label><div id="lines"></div><div class="row"><b>Total</b><b>Rs. <span id="tot">0</span></b></div><p class="tag" id="earn" style="margin:0"></p>
+ <label>Name<input id="oname" placeholder="Your name"></label><label>Email<input id="omail" type="email" placeholder="you@email.com"></label>
+ <button class="btn" onclick="checkout()">Pay & place order</button><button class="btn ghost" onclick="waOrder()">💬 Send order via WhatsApp</button><p class="tag" style="text-align:center"><a href="#" onclick="openTrack();return false" style="color:var(--a)">Track an order</a> · <a href="#" onclick="openRewards();return false" style="color:var(--a)">⭐ My rewards</a></p><p class="tag">Demo checkout – connects to a real gateway once the backend is added.</p></div>
+<div class="modal" id="m1"><div class="box"><h3>Confirm reservation</h3><p class="tag" id="rsum"></p>
+ <label>Full name<input id="rn"></label><label>Email<input id="re" type="email"></label><label>Phone<input id="rp" type="tel"></label><label>Occasion<select id="rocc"><option>None</option><option>Birthday</option><option>Anniversary</option><option>Date night</option><option>Business meeting</option><option>Other</option></select></label><label>Special requests (optional)<textarea id="rnote" maxlength="300" placeholder="High chair, window seat, cake on arrival…"></textarea></label>
+ <div class="preBox"><label style="display:flex;gap:10px;align-items:flex-start;margin:0"><input type="checkbox" id="rpre" style="width:auto;margin-top:4px"><span><b>🍽️ Pre-order my cart</b><br><small class="tag" id="preSum"></small></span></label></div>
+ <div style="display:flex;gap:10px"><button class="btn" onclick="confirmRes()">Confirm booking</button><button class="btn ghost" onclick="mclose()">Cancel</button></div></div></div>
+<div class="modal" id="m2"><div class="box" id="m2b"></div></div>
+<div class="modal" id="m6"><div class="box" id="m6b"></div></div>
+<div class="modal" id="m7"><div class="box" id="m7b"></div></div>
+<div class="modal" id="m4"><div class="box" id="m4b"></div></div>
+<div class="modal" id="m5"><div class="box" id="m5b"></div></div>
+<div class="modal" id="m3"><div class="box" id="m3b"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script></body></html>
